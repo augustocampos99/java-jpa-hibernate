@@ -1,12 +1,18 @@
 package com.exemplos.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -17,13 +23,25 @@ public class Pedido {
 	private int id;
 	
 	@Column(name = "valor_total")
-	private double valorTotal;
+	private BigDecimal valorTotal;
 
 	@Column(name = "usuario_id")
 	private int usuarioId;
 	
 	@Column(name = "data_pedido")
 	private LocalDateTime dataPedido;
+
+	@ManyToMany
+	@JoinTable(name = "itens_pedido", joinColumns = { @JoinColumn(name = "pedido_id") }, inverseJoinColumns = { @JoinColumn(name = "produto_id") })
+	private List<Produto> pedidos = new ArrayList<Produto>();
+		
+	public List<Produto> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Produto> pedidos) {
+		this.pedidos = pedidos;
+	}
 
 	public int getId() {
 		return id;
@@ -33,11 +51,11 @@ public class Pedido {
 		this.id = id;
 	}
 
-	public double getValorTotal() {
+	public BigDecimal getValorTotal() {
 		return valorTotal;
 	}
 
-	public void setValorTotal(double valorTotal) {
+	public void setValorTotal(BigDecimal valorTotal) {
 		this.valorTotal = valorTotal;
 	}
 

@@ -1,6 +1,8 @@
 package com.exemplos.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -29,7 +31,7 @@ public class Produto {
 	
 	private String nome;
 
-	private double preco;
+	private BigDecimal preco;
 
 	@Column(name = "id_categoria")
 	private int idCategoria;
@@ -43,11 +45,11 @@ public class Produto {
 	private Categoria categoria;
 	
 	@OneToMany(mappedBy = "produto", cascade = CascadeType.ALL)
-	private List<Comentario> comentarios;
+	private List<Comentario> comentarios = new ArrayList<Comentario>();
 	
 	@ManyToMany
 	@JoinTable(name = "itens_pedido", joinColumns = { @JoinColumn(name = "produto_id") }, inverseJoinColumns = { @JoinColumn(name = "pedido_id") })
-	private List<Pedido> pedidos;
+	private List<Pedido> pedidos = new ArrayList<Pedido>();
 
 	public List<Comentario> getComentarios() {
 		return comentarios;
@@ -81,11 +83,11 @@ public class Produto {
 		this.nome = nome;
 	}
 
-	public double getPreco() {
+	public BigDecimal getPreco() {
 		return preco;
 	}
 
-	public void setPreco(double preco) {
+	public void setPreco(BigDecimal preco) {
 		this.preco = preco;
 	}
 

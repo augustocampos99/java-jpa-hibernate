@@ -1,12 +1,11 @@
 package com.exemplos.repository;
 
-import java.time.LocalDateTime;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import javax.persistence.Query;
 
 import com.exemplos.entity.Produto;
 
@@ -46,9 +45,9 @@ public class ProdutoRepository {
 		.getResultList();
 	}
 	
-	public double buscarApenasPrecoProduto(int id) {
+	public BigDecimal buscarApenasPrecoProduto(int id) {
 		String jpql = "select p.preco from Produto p where p.id = :id";
-		return this.em.createQuery(jpql, Double.class)
+		return this.em.createQuery(jpql, BigDecimal.class)
 				.setParameter("id", id)
 				.getSingleResult();
 	}
