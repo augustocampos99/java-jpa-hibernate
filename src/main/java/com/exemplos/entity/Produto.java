@@ -16,6 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -24,6 +25,7 @@ import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "produtos")
+@NamedQuery(name = "Produto.SelectAll", query = "select p from Produto p join fetch p.categoria")
 public class Produto {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

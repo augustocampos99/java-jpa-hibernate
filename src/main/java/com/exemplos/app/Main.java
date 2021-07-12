@@ -5,6 +5,7 @@ import java.util.List;
 import com.exemplos.entity.Produto;
 import com.exemplos.entity.Usuario;
 import com.exemplos.repository.*;
+import com.exemplos.vo.RelatorioVendasVo;
 
 public class Main {
 
@@ -17,9 +18,10 @@ public class Main {
 
 		//produtoRepository.cadastrar();
 		//usuarioRepository.cadastrar();
-		List<Produto> produtosList = produtoRepository.buscarTodos();
+		List<Produto> produtosList = produtoRepository.buscarTodosComNamedQuery();
 		List<Produto> produtos = produtoRepository.buscarPorNomeCategoria("games");
 		Usuario usuario = usuarioRepository.buscarPorEmail("guto@gmail.com");
+		System.out.println(produtosList.size());
 		System.out.println(produtos.size());
 		System.out.println(usuario.getId());
 		System.out.println(produtoRepository.buscarApenasPrecoProduto(15));
@@ -28,10 +30,10 @@ public class Main {
 		System.out.println(pedidoRepository.buscarMaiorValorPedidos());
 		System.out.println(pedidoRepository.buscarValorMedioPedidos());
 		
-		List<Object[]> relatorioVendas = relatorioRepository.relatorioVendas();
+		List<RelatorioVendasVo> relatorioVendas = relatorioRepository.relatorioVendas();
 		
-		for(Object[] item : relatorioVendas) {
-			System.out.println(item[2]);
+		for(RelatorioVendasVo item : relatorioVendas) {
+			System.out.println(item.toString());
 		}
 	}
 

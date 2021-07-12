@@ -24,6 +24,11 @@ public class ProdutoRepository {
 		return produtoList;
 	}
 	
+	public List<Produto> buscarTodosComNamedQuery() {
+		List<Produto> produtoList = this.em.createNamedQuery("Produto.SelectAll", Produto.class).getResultList();
+		return produtoList;
+	}
+	
 	public Produto buscarPorId(int id) {
 		Produto produtoResult = this.em.find(Produto.class, id);
 		return produtoResult;

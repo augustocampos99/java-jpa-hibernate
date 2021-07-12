@@ -6,6 +6,8 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
+import com.exemplos.vo.RelatorioVendasVo;
+
 public class RelatorioRepository {
 
 	private EntityManagerFactory factory;
@@ -16,16 +18,17 @@ public class RelatorioRepository {
 		this.em = factory.createEntityManager();
 	}
 	
-	public List<Object[]> relatorioVendas() {
-		String jpql = "SELECT produto.nome, "
+	public List<RelatorioVendasVo> relatorioVendas() {
+		String jpql = "SELECT new com.exemplos.vo.RelatorioVendasVo("
+				+ "produto.nome, "
 				+ "MAX(pedido.dataPedido), "
-				+ "SUM(produto.preco) "
+				+ "SUM(produto.preco)) "
 				+ "FROM Produto produto "
 				+ "JOIN produto.pedidos pedido "
 				+ "GROUP BY produto.id "
 				+ "ORDER BY produto.preco ASC";
 		
-		return this.em.createQuery(jpql, Object[].class).getResultList();
+		return this.em.createQuery(jpql, RelatorioVendasVo.class).getResultList();
 	}
 
 }
