@@ -6,6 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
+import javax.persistence.TypedQuery;
 
 import com.exemplos.entity.Produto;
 
@@ -48,6 +49,24 @@ public class ProdutoRepository {
 		return this.em.createQuery(jpql, Produto.class)
 		.setParameter("nome", nome)		
 		.getResultList();
+	}
+	
+	public List<Produto> buscaDinamica(String nomeProduto, String nomeCategoria) {
+		String 	jpql = "select p from Produto p join fetch p.categoria c where 1=1 ";
+		if(nomeProduto != null && !nomeProduto.trim().isEmpty())
+			jpql += "and p.nome = :nomeProduto ";
+		
+		if(nomeCategoria != null && !nomeCategoria.trim().isEmpty())
+			jpql += "and c.nome = :nomeCategoria ";
+		
+		TypedQuery<Produto> query = this.em.createQuery(jpql, Produto.class);
+		if(nomeProduto != null && !nomeProduto.trim().isEmpty())
+			query.setParameter("nomeProduto", nomeProduto);
+		
+		if(nomeCategoria != null && !nomeCategoria.trim().isEmpty())
+			query.setParameter("nomeCategoria", nomeCategoria);
+
+		return query.getResultList();
 	}
 	
 	public BigDecimal buscarApenasPrecoProduto(int id) {

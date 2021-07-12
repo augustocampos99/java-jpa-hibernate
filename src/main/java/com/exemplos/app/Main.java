@@ -19,10 +19,12 @@ public class Main {
 		//produtoRepository.cadastrar();
 		//usuarioRepository.cadastrar();
 		List<Produto> produtosList = produtoRepository.buscarTodosComNamedQuery();
-		List<Produto> produtos = produtoRepository.buscarPorNomeCategoria("games");
+		List<Produto> produtosListDinamico = produtoRepository.buscaDinamica("Sansung", "Smartphones");
+		List<Produto> produtosPorCategoria = produtoRepository.buscarPorNomeCategoria("games");
 		Usuario usuario = usuarioRepository.buscarPorEmail("guto@gmail.com");
 		System.out.println(produtosList.size());
-		System.out.println(produtos.size());
+		System.out.println(produtosListDinamico.size());
+		System.out.println(produtosPorCategoria.size());
 		System.out.println(usuario.getId());
 		System.out.println(produtoRepository.buscarApenasPrecoProduto(15));
 		System.out.println(pedidoRepository.buscarValorTotalPedidos());
