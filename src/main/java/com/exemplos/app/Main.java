@@ -2,6 +2,7 @@ package com.exemplos.app;
 
 import java.util.List;
 
+import com.exemplos.entity.Categoria;
 import com.exemplos.entity.Produto;
 import com.exemplos.entity.Usuario;
 import com.exemplos.repository.*;
@@ -14,6 +15,7 @@ public class Main {
 		UsuarioRepository usuarioRepository = new UsuarioRepository();
 		ProdutoRepository produtoRepository = new ProdutoRepository();
 		PedidoRepository pedidoRepository = new PedidoRepository();
+		CategoriaRepository categoriaRepository = new CategoriaRepository();
 		RelatorioRepository relatorioRepository = new RelatorioRepository();
 
 		//produtoRepository.cadastrar();
@@ -35,6 +37,11 @@ public class Main {
 		List<RelatorioVendasVo> relatorioVendas = relatorioRepository.relatorioVendas();
 		
 		for(RelatorioVendasVo item : relatorioVendas) {
+			System.out.println(item.toString());
+		}
+		
+		List<Categoria> categorias = categoriaRepository.buscarTodosQueryNativa();
+		for(Categoria item : categorias) {
 			System.out.println(item.toString());
 		}
 	}
